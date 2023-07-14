@@ -8,10 +8,10 @@ void setup() {
 
 void loop() {
   long duration, inches, cm;
-  // digitalWrite(pingPin, LOW);
-  // delayMicroseconds(2);
+  digitalWrite(pingPin, LOW);
+  delayMicroseconds(2);
   digitalWrite(pingPin, HIGH);
-  delayMicroseconds(1000);
+  delayMicroseconds(10);
   digitalWrite(pingPin, LOW);
   pinMode(echoPin, INPUT);
   duration = pulseIn(echoPin, HIGH);
