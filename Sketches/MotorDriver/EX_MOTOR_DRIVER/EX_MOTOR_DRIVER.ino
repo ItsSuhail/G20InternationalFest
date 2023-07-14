@@ -1,5 +1,8 @@
 #include <AFMotor.h>
 
+// Defining a time period for turning the car
+const int turningTimePeriod = 3 * 1000; // time period in milliseconds
+
 // Creating an object and defining frontLeft motor at "pin 1" or simply numbered "1"
 AF_DCMotor frontRight(1);
 AF_DCMotor frontLeft(2);
@@ -22,6 +25,8 @@ void goLeft(){
   stopAll();
   frontRight.setSpeed(255);bottomRight.setSpeed(255);
   bottomRight.run(FORWARD);frontRight.run(FORWARD);
+  delay(turningTimePeriod);
+  stopAll();
 }
 
 // Not fully implemented as we need to see how much duration is required
@@ -29,6 +34,8 @@ void goRight(){
   stopAll();
   frontLeft.setSpeed(255);bottomLeft.setSpeed(255);
   bottomLeft.run(FORWARD);frontLeft.run(FORWARD);
+  delay(turningTimePeriod);
+  stopAll();
 }
 
 
@@ -39,6 +46,6 @@ void stopAll(){
   bottomLeft.run(BRAKE);
 }
 
-void loop() 
-{
+void loop() {
+
 }
