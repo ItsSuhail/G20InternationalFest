@@ -25,6 +25,8 @@ void goLeft(){
   stopAll();
   frontRight.setSpeed(255);bottomRight.setSpeed(255);
   bottomRight.run(FORWARD);frontRight.run(FORWARD);
+  frontLeft.setSpeed(255);bottomLeft.setSpeed(255);
+  bottomLeft.run(FORWARD);frontLeft.run(FORWARD);
   delay(turningTimePeriod);
   stopAll();
 }
@@ -34,6 +36,8 @@ void goRight(){
   stopAll();
   frontLeft.setSpeed(255);bottomLeft.setSpeed(255);
   bottomLeft.run(FORWARD);frontLeft.run(FORWARD);
+  frontRight.setSpeed(255);bottomRight.setSpeed(255);
+  bottomRight.run(BACKWARD);bottomRight.run(BACKWARD);
   delay(turningTimePeriod);
   stopAll();
 }
