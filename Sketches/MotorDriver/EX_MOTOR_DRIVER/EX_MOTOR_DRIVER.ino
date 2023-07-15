@@ -1,9 +1,10 @@
 #include <AFMotor.h>
 
 // Defining a time period for turning the car
-const int turningTimePeriod = 3 * 1000; // time period in milliseconds
+// time period in milliseconds
+const int turningTimePeriod = 3 * 1000; 
 
-// Creating an object and defining frontLeft motor at "pin 1" or simply numbered "1"
+// Creating an object and defining the four car motor at pins 1, 2, 3 and 4
 AF_DCMotor frontRight(1);
 AF_DCMotor frontLeft(2);
 AF_DCMotor bottomLeft(3);
