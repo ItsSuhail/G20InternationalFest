@@ -1,17 +1,16 @@
-#include<SoftwareSerial.h>
+#include <SoftwareSerial.h>
 
-/* Create object named bt of the class SoftwareSerial */ 
-SoftwareSerial bt(0,1); /* (Rx,Tx) */	
+/* Create object named BluetoothModule of the class SoftwareSerial */ 
+SoftwareSerial BluetoothModule(0,1); /* (Rx,Tx) */	
 
 void setup() {
-  bt.begin(9600);	/* Define baud rate for software serial communication */
-  Serial.begin(9600);	/* Define baud rate for serial communication */
+  BluetoothModule.begin(9600);	/* Define baud rate for Sofware serial communication or Bluetooth Communication */
+  Serial.begin(9600);	/* Define baud rate for serial communication for testing */
 }
 
 void loop() {
-  
-    if (bt.available())	/* If data is available on serial port */
-    {
-     Serial.write(bt.read());	/* Print character received on to the serial monitor */
-    }
+  /*Checks If data is available on serial port */
+  if (BluetoothModule.available()) {
+    Serial.write(BluetoothModule.read());
+  }
 }
