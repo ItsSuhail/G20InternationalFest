@@ -1,13 +1,11 @@
 #include <SoftwareSerial.h>
 #include <AFMotor.h>
 
-// Defining a time period for turning the car
-const int turningTimePeriod = 3 * 1000; // time period in milliseconds
-
-const char B = 'B';
-const char F = 'F';
-const char L = 'L';
-const char R = 'R';
+// Defining the commands i.e BACKWARD, FORWARD, LEFT and RIGHT
+const int B = 'B';
+const int F = 'F';
+const int L = 'L';
+const int R = 'R';
 
 // Creating an object and defining the four car motor at pins 1, 2, 3 and 4
 AF_DCMotor frontRight(1);
@@ -16,50 +14,57 @@ AF_DCMotor backLeft(3);
 AF_DCMotor backRight(4);
 
 /* Create object named BluetoothModule of the class SoftwareSerial */ 
-SoftwareSerial BluetoothModule(0,1); /* (Rx,Tx) */	
+SoftwareSerial bluetoothModule(0,1); /* (Rx,Tx) */	
 
 void setup() {
-  BluetoothModule.begin(9600);	/* Define baud rate for Sofware serial communication or Bluetooth Communication */
-  // Serial.begin(9600);	/* Define baud rate for serial communication for testing */
+  bluetoothModule.begin(9600);	/* Define baud rate for Sofware serial communication or Bluetooth Communication */
+  Serial.begin(9600);	/* Define baud rate for serial communication for testing */
 }
 
 void loop() {
-  /*Checks If data is available on serial port */
-  if (BluetoothModule.available()) {
-    Serial.write(BluetoothModule.read()); // For printing whatever data is being sent
-    if(BluetoothModule.read() == F){
-      forwardAll();
-    }
-    else if(BluetoothModule.read() == B){
-      backwardAll();
-    }
-    else if(BluetoothModule.read() == L){
-      goLeft();
-    }
-    else if(BluetoothModule.read() == R){
-      goRight();
-    }
+  // Serial.println(BluetoothModule.available());
+  // Checks If data is available on serial port
+  if (bluetoothModule.available()) {
+    char command = bluetoothModule.read(); // Converting the data sent into char
+    Serial.write(command); // For printing whatever data is being sent
+    alterMotors(command); // Alter the four motors based on the command sent
   }
 }
 
-void goLeft() {
-  stopAll();
-  frontRight.setSpeed(255);backRight.setSpeed(255);
-  backRight.run(FORWARD);frontRight.run(FORWARD);
-  frontLeft.setSpeed(255);backLeft.setSpeed(255);
-  backLeft.run(BACKWARD);frontLeft.run(BACKWARD);
-  // delay(turningTimePeriod);
-  // stopAll();
+void alterMotors(char motorCommand){
+  if (motorCommand == 'S') {
+    stopAll();
+  }
+  else if(motorCommand == 'F') {
+    forwardAll();
+  }
+  else if(motorCommand == 'B') {
+    backwardAll();
+  }
+  else if(motorCommand == 'L') {
+    turnLeft();
+  }
+  else if(motorCommand == 'R') {
+    turnRight();
+  }
 }
 
-void goRight() {
+void turnLeft() {
   stopAll();
-  frontLeft.setSpeed(255);backLeft.setSpeed(255);
-  backLeft.run(FORWARD);frontLeft.run(FORWARD);
-  frontRight.setSpeed(255);backRight.setSpeed(255);
-  backRight.run(BACKWARD);frontRight.run(BACKWARD);
-  // delay(turningTimePeriod);
-  // stopAll();
+
+  frontRight.setSpeed(255); backRight.setSpeed(255);
+  backRight.run(FORWARD); frontRight.run(FORWARD);
+  frontLeft.setSpeed(255); backLeft.setSpeed(255);
+  backLeft.run(BACKWARD); frontLeft.run(BACKWARD);
+}
+
+void turnRight() {
+  stopAll();
+
+  frontLeft.setSpeed(255); backLeft.setSpeed(255);
+  backLeft.run(FORWARD); frontLeft.run(FORWARD);
+  frontRight.setSpeed(255); backRight.setSpeed(255);
+  backRight.run(BACKWARD); frontRight.run(BACKWARD);
 }
 
 void forwardAll() {
@@ -68,6 +73,7 @@ void forwardAll() {
   backRight.setSpeed(255);
   frontLeft.setSpeed(255);
   backLeft.setSpeed(255);
+
   // Setting all motors to forward direction
   frontRight.run(FORWARD);
   backRight.run(FORWARD);
@@ -90,8 +96,8 @@ void backwardAll() {
 }
 
 void stopAll() {
-  frontRight.run(BRAKE);
-  frontLeft.run(BRAKE);
-  backRight.run(BRAKE);
-  backLeft.run(BRAKE);
+  frontRight.run(RELEASE);
+  frontLeft.run(RELEASE);
+  backRight.run(RELEASE);
+  backLeft.run(RELEASE);
 }
