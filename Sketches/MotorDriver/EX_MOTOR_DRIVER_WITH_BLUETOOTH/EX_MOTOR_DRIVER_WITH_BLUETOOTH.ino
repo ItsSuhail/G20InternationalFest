@@ -1,6 +1,9 @@
 #include <SoftwareSerial.h>
 #include <AFMotor.h>
 
+// Defining timeperiod for turning
+const int timePeriod = 100; // In milliseconds
+
 // Defining the commands i.e BACKWARD, FORWARD, LEFT and RIGHT
 const int B = 'B';
 const int F = 'F';
@@ -22,7 +25,6 @@ void setup() {
 }
 
 void loop() {
-  // Serial.println(BluetoothModule.available());
   // Checks If data is available on serial port
   if (bluetoothModule.available()) {
     char command = bluetoothModule.read(); // Converting the data sent into char
@@ -31,21 +33,18 @@ void loop() {
   }
 }
 
-void alterMotors(char motorCommand){
-  if (motorCommand == 'S') {
-    stopAll();
-  }
-  else if(motorCommand == 'F') {
-    forwardAll();
-  }
-  else if(motorCommand == 'B') {
-    backwardAll();
-  }
-  else if(motorCommand == 'L') {
-    turnLeft();
-  }
-  else if(motorCommand == 'R') {
-    turnRight();
+void alterMotors(char motorCommand) {
+  switch (motorCommand) {
+    case 'S': stopAll(); break;
+    case 'F': forwardAll(); break;
+    case 'B': backwardAll(); break;
+    case 'L': turnLeft(); break;
+    case 'R': turnRight(); break;
+    case 'G': forwardAll(); turnLeft(); break;
+    case 'H': backwardAll(); turnLeft(); break;
+    case 'I': forwardAll(); turnRight(); break;
+    case 'J': backwardAll(); turnRight(); break;
+    default: Serial.println("Command not implemented yet."); stopAll();
   }
 }
 
