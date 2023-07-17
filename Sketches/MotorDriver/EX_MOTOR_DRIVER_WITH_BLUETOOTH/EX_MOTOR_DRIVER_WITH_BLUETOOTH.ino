@@ -1,5 +1,6 @@
 #include <SoftwareSerial.h>
 #include <AFMotor.h>
+#include <time.h>
 
 // Defining timeperiod for turning
 const int timePeriod = 100; // In milliseconds
@@ -12,6 +13,9 @@ const int B = 'B';
 const int F = 'F';
 const int L = 'L';
 const int R = 'R';
+
+// Timer to check for bluetooth connection.
+unsigned long lastBTPing;
 
 // Creating an object and defining the four car motor at pins 1, 2, 3 and 4
 AF_DCMotor frontRight(1);
@@ -28,12 +32,15 @@ void setup() {
 }
 
 void loop() {
-  // Checks If data is available on serial port
-  
-  if (bluetoothModule.available()) {
-    char command = bluetoothModule.read(); // Converting the data sent into char
+  if (bluetoothModule.available()) { // Confirm BT connection
+    lastBTPing = millis();
+    char command = bluetoothModule.read();
     // Serial.write(command); // For printing whatever data is being sent
-    alterMotors(command); // Alter the four motors based on the command sent
+    alterMotors(command);
+  }
+  else if (millis() - lastBTPing >= 500) { // Waiting for 500ms to confirm BT Disconnection
+    Serial.println("BT Disconnected.");
+    stopAll();
   }
 }
 
