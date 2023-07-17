@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "port": "COM5",
+    "sketch": "EX_ULTRASONIC_SENSOR_ANALOG\\EX_ULTRASONIC_SENSOR_ANALOG.ino"
+}

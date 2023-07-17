@@ -4,6 +4,9 @@
 // Defining timeperiod for turning
 const int timePeriod = 100; // In milliseconds
 
+int speedOfCar = 125;
+int maximumSpeed = 150;
+
 // Defining the commands i.e BACKWARD, FORWARD, LEFT and RIGHT
 const int B = 'B';
 const int F = 'F';
@@ -26,9 +29,10 @@ void setup() {
 
 void loop() {
   // Checks If data is available on serial port
+  
   if (bluetoothModule.available()) {
     char command = bluetoothModule.read(); // Converting the data sent into char
-    Serial.write(command); // For printing whatever data is being sent
+    // Serial.write(command); // For printing whatever data is being sent
     alterMotors(command); // Alter the four motors based on the command sent
   }
 }
@@ -44,34 +48,51 @@ void alterMotors(char motorCommand) {
     case 'H': backwardAll(); turnLeft(); break;
     case 'I': forwardAll(); turnRight(); break;
     case 'J': backwardAll(); turnRight(); break;
-    default: Serial.println("Command not implemented yet."); stopAll();
+    case 'q': speedOfCar = maximumSpeed; break;
+    case 'U': break;
+    case 'u': break;
+    case 'V': break;
+    case 'v': break;
+    case 'W': break;
+    case 'w': break;
+    case 'X': break;
+    case 'x': break;
+    // case 'J': backwardAll(); turnRight(); break;
+    // case 'J': backwardAll(); turnRight(); break;
+    default: setSpeedOfCar(motorCommand); break;
   }
+}
+
+void setSpeedOfCar(char speedCommand){
+  int intSpeedOfCar = speedCommand - '0';
+  int speed = map(intSpeedOfCar, 0, 9, 0, maximumSpeed);
+  speedOfCar = speed;
 }
 
 void turnLeft() {
   stopAll();
 
-  frontRight.setSpeed(255); backRight.setSpeed(255);
+  frontRight.setSpeed(speedOfCar); backRight.setSpeed(speedOfCar);
   backRight.run(FORWARD); frontRight.run(FORWARD);
-  frontLeft.setSpeed(255); backLeft.setSpeed(255);
+  frontLeft.setSpeed(speedOfCar); backLeft.setSpeed(speedOfCar);
   backLeft.run(BACKWARD); frontLeft.run(BACKWARD);
 }
 
 void turnRight() {
   stopAll();
 
-  frontLeft.setSpeed(255); backLeft.setSpeed(255);
+  frontLeft.setSpeed(speedOfCar); backLeft.setSpeed(speedOfCar);
   backLeft.run(FORWARD); frontLeft.run(FORWARD);
-  frontRight.setSpeed(255); backRight.setSpeed(255);
+  frontRight.setSpeed(speedOfCar); backRight.setSpeed(speedOfCar);
   backRight.run(BACKWARD); frontRight.run(BACKWARD);
 }
 
 void forwardAll() {
-  // Setting speed to 255
-  frontRight.setSpeed(255);
-  backRight.setSpeed(255);
-  frontLeft.setSpeed(255);
-  backLeft.setSpeed(255);
+  // Setting speed to "speedOfCar"
+  frontRight.setSpeed(speedOfCar);
+  backRight.setSpeed(speedOfCar);
+  frontLeft.setSpeed(speedOfCar);
+  backLeft.setSpeed(speedOfCar);
 
   // Setting all motors to forward direction
   frontRight.run(FORWARD);
@@ -81,17 +102,17 @@ void forwardAll() {
 }
 
 void backwardAll() {
-  // Setting speed to 255
-  frontRight.setSpeed(255);
-  backRight.setSpeed(255);
-  frontLeft.setSpeed(255);
-  backLeft.setSpeed(255);
+  // Setting speed to "speedOfCar"
+  frontRight.setSpeed(speedOfCar);
+  backRight.setSpeed(speedOfCar);
+  frontLeft.setSpeed(speedOfCar);
+  backLeft.setSpeed(speedOfCar);
   
   // Setting all motors to forward direction
-  frontRight.run(BACKWARD);
   backRight.run(BACKWARD);
-  frontLeft.run(BACKWARD);
   backLeft.run(BACKWARD);
+  frontRight.run(BACKWARD);
+  frontLeft.run(BACKWARD);
 }
 
 void stopAll() {
