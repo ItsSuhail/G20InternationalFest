@@ -1,5 +1,0 @@
-{
-    "port": "COM5",
-    "board": "arduino:avr:uno",
-    "sketch": "EX_MOTOR_DRIVER_WITH_BLUETOOTH\\EX_MOTOR_DRIVER_WITH_BLUETOOTH.ino"
-}

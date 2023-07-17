@@ -1,5 +1,0 @@
-{
-    "port": "COM5",
-    "board": "arduino:avr:uno",
-    "sketch": "EX_IR_SENSOR\\EX_IR_SENSOR.ino"
-}

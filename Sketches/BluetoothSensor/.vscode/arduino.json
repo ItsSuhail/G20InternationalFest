@@ -1,5 +1,0 @@
-{
-    "board": "arduino:avr:uno",
-    "port": "COM5",
-    "sketch": "EX_BLUETOOTH_MODULE\\EX_BLUETOOTH_MODULE.ino"
-}
