@@ -8,6 +8,9 @@ An autonomous self-driving car with lane detection and collision avoidance.
 
 - **Collision Avoidance**
 > When an obstacle lies in the car's path, it analyses the object's size to go around/overtake it and gets back on the desired lane. This is independent of the object's size as long as at least one open pathway exists.
+
+- **Bluetooth Enabled**
+> Optional BT feature to control the car as an RC car using a [mobile app](https://play.google.com/store/apps/details?id=braulio.calle.bluetoothRCcontroller)
 <br/>
 
 ## Components used
