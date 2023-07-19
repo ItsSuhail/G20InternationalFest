@@ -18,10 +18,10 @@ const int R = 'R';
 unsigned long lastBTPing;
 
 // Creating an object and defining the four car motor at pins 1, 2, 3 and 4
-AF_DCMotor frontRight(1);
-AF_DCMotor frontLeft(2);
-AF_DCMotor backLeft(3);
-AF_DCMotor backRight(4);
+AF_DCMotor backLeft(1); // M1
+AF_DCMotor backRight(2); // M2
+AF_DCMotor frontRight(3); // M3
+AF_DCMotor frontLeft(4); // M4
 
 /* Create object named BluetoothModule of the class SoftwareSerial */ 
 SoftwareSerial bluetoothModule(0,1); /* (Rx,Tx) */	
