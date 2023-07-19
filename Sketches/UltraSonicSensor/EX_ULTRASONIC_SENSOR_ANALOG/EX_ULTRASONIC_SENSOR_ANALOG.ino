@@ -1,5 +1,5 @@
 const int TRIGGER_PIN = A0;
-const int ECHO_PIN = A1;
+const int ECHO_PIN = A5;
 const int inter_time = 1000;
 
 void setup() {
