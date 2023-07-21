@@ -2,16 +2,16 @@
 #include <AFMotor.h>
 
 // Defining the IR Sensors
-const int ProxSensorL = A2;
+const int ProxSensorL = A0;
 const int ProxSensorR = A5;
 
 // Defining timeperiod for turning
-const int timePeriod = 100; // In milliseconds
+const int timePeriod = 50; // In milliseconds
 
-int speedOfM1 = 75;
-int speedOfM2 = 75;
-int speedOfM3 = 100;
-int speedOfM4 = 100;
+int speedOfM1 = 40;
+int speedOfM2 = 40;
+int speedOfM3 = 60;
+int speedOfM4 = 60;
 // int maximumSpeed = 150;
 
 // Creating an object and defining the four car motor at pins 1, 2, 3 and 4
@@ -56,8 +56,7 @@ void turnLeft() {
   backRight.run(FORWARD); frontRight.run(FORWARD);
   frontLeft.setSpeed(speedOfM4 + 50); backLeft.setSpeed(speedOfM1 + 50);
   backLeft.run(BACKWARD); frontLeft.run(BACKWARD);
-
-  speedReset();
+  delay(timePeriod);
 }
 
 void turnRight() {
@@ -67,8 +66,7 @@ void turnRight() {
   backLeft.run(FORWARD); frontLeft.run(FORWARD);
   frontRight.setSpeed(speedOfM3 + 50); backRight.setSpeed(speedOfM2 + 50);
   backRight.run(BACKWARD); frontRight.run(BACKWARD);
-
-  speedReset();
+  delay(timePeriod);
 }
 
 void forwardAll() {
@@ -98,15 +96,14 @@ void backwardAll() {
 }
 
 void stopAll() {
-  frontRight.run(RELEASE);
-  frontLeft.run(RELEASE);
-  backRight.run(RELEASE);
-  backLeft.run(RELEASE);
-}
+  frontRight.setSpeed(0);
+  frontLeft.setSpeed(0);
+  backLeft.setSpeed(0);
+  backRight.setSpeed(0);
 
-void speedReset() {
-  frontRight.setSpeed(speedOfM4);
-  frontLeft.setSpeed(speedOfM3);
-  backRight.setSpeed(speedOfM2);
-  backLeft.setSpeed(speedOfM1);
+  frontRight.run(FORWARD);
+  frontLeft.run(FORWARD);
+  backRight.run(FORWARD);
+  backLeft.run(FORWARD);
+
 }
